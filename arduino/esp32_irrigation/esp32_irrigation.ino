@@ -380,8 +380,9 @@ void handlePumpCommand(PumpState& pump, const char* payload) {
                 bool state = doc["state"].as<bool>() || 
                             strcmp(doc["state"].as<const char*>(), "on") == 0;
                 if (doc.containsKey("duration")) {
-                    pump.duration = min((unsigned long)doc["duration"].as<int>(), 
-                                       MAX_PUMP_DURATION_MS);
+                    unsigned long dur = (unsigned long)doc["duration"].as<int>();
+                    unsigned long maxDur = MAX_PUMP_DURATION_MS;
+                    pump.duration = (dur < maxDur) ? dur : maxDur;
                 }
                 setPump(pump, state);
             }
