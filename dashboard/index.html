@@ -18,99 +18,16 @@
         </header>
 
         <main>
-            <!-- Pump 1 Card -->
+            <!-- Single Pump Card -->
             <div class="pump-card" id="pump1-card">
                 <div class="pump-header">
-                    <h2>💧 Pump 1</h2>
+                    <h2>💧 Water Pump</h2>
                     <span class="pump-status" id="pump1-status">OFF</span>
                 </div>
                 
                 <div class="controls">
-                    <button class="btn btn-on" onclick="setPump(1, 'on')">Turn ON</button>
-                    <button class="btn btn-off" onclick="setPump(1, 'off')">Turn OFF</button>
-                </div>
-
-                <div class="duration-control">
-                    <label>Duration:</label>
-                    <select id="pump1-duration">
-                        <option value="10000">10 sec</option>
-                        <option value="30000" selected>30 sec</option>
-                        <option value="60000">1 min</option>
-                        <option value="120000">2 min</option>
-                        <option value="300000">5 min</option>
-                    </select>
-                    <button class="btn btn-timed" onclick="setPumpTimed(1)">Run Timed</button>
-                </div>
-
-                <div class="schedule-section">
-                    <h3>📅 Schedule</h3>
-                    <div class="schedule-controls">
-                        <label class="switch">
-                            <input type="checkbox" id="pump1-schedule-enabled" onchange="updateSchedule(1)">
-                            <span class="slider"></span>
-                        </label>
-                        <input type="time" id="pump1-schedule-time" value="07:00" onchange="updateSchedule(1)">
-                        <select id="pump1-schedule-interval" onchange="updateSchedule(1)">
-                            <option value="1">Daily</option>
-                            <option value="2">Every 2 days</option>
-                            <option value="3">Every 3 days</option>
-                            <option value="7">Weekly</option>
-                        </select>
-                        <select id="pump1-schedule-duration" onchange="updateSchedule(1)">
-                            <option value="10000">10 sec</option>
-                            <option value="30000" selected>30 sec</option>
-                            <option value="60000">1 min</option>
-                            <option value="120000">2 min</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pump 2 Card -->
-            <div class="pump-card" id="pump2-card">
-                <div class="pump-header">
-                    <h2>💧 Pump 2</h2>
-                    <span class="pump-status" id="pump2-status">OFF</span>
-                </div>
-                
-                <div class="controls">
-                    <button class="btn btn-on" onclick="setPump(2, 'on')">Turn ON</button>
-                    <button class="btn btn-off" onclick="setPump(2, 'off')">Turn OFF</button>
-                </div>
-
-                <div class="duration-control">
-                    <label>Duration:</label>
-                    <select id="pump2-duration">
-                        <option value="10000">10 sec</option>
-                        <option value="30000" selected>30 sec</option>
-                        <option value="60000">1 min</option>
-                        <option value="120000">2 min</option>
-                        <option value="300000">5 min</option>
-                    </select>
-                    <button class="btn btn-timed" onclick="setPumpTimed(2)">Run Timed</button>
-                </div>
-
-                <div class="schedule-section">
-                    <h3>📅 Schedule</h3>
-                    <div class="schedule-controls">
-                        <label class="switch">
-                            <input type="checkbox" id="pump2-schedule-enabled" onchange="updateSchedule(2)">
-                            <span class="slider"></span>
-                        </label>
-                        <input type="time" id="pump2-schedule-time" value="07:00" onchange="updateSchedule(2)">
-                        <select id="pump2-schedule-interval" onchange="updateSchedule(2)">
-                            <option value="1">Daily</option>
-                            <option value="2">Every 2 days</option>
-                            <option value="3" selected>Every 3 days</option>
-                            <option value="7">Weekly</option>
-                        </select>
-                        <select id="pump2-schedule-duration" onchange="updateSchedule(2)">
-                            <option value="10000">10 sec</option>
-                            <option value="30000" selected>30 sec</option>
-                            <option value="60000">1 min</option>
-                            <option value="120000">2 min</option>
-                        </select>
-                    </div>
+                    <button class="btn btn-on" onclick="setPump('on')">Turn ON</button>
+                    <button class="btn btn-off" onclick="setPump('off')">Turn OFF</button>
                 </div>
             </div>
         </main>
