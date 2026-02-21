@@ -4,8 +4,8 @@
 // ============================================
 // WiFi Configuration
 // ============================================
-#define WIFI_SSID "YOUR_WIFI_SSID"
-#define WIFI_PASS "YOUR_WIFI_PASSWORD"
+#define WIFI_SSID "Airtel_anur_5235"
+#define WIFI_PASS "Air@51429"
 
 // ============================================
 // MQTT Configuration (HiveMQ Cloud)
