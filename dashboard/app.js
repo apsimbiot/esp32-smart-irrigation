@@ -78,6 +78,10 @@ function connectMQTT() {
             updatePumpStatus(msg);
         }
         
+        if (topic === TOPIC_STATUS) {
+            updateDeviceStatus(msg);
+        }
+        
         updateLastUpdate();
     });
     
@@ -95,13 +99,27 @@ function connectMQTT() {
     });
 }
 
-// Update connection status display
+// Update connection status display (dashboard connection)
 function updateStatus(state, text) {
     const statusEl = document.getElementById('status');
     const textEl = document.getElementById('status-text');
     
     statusEl.className = 'status ' + state;
     textEl.textContent = text;
+}
+
+// Update ESP32 device status
+function updateDeviceStatus(status) {
+    const statusEl = document.getElementById('status');
+    const textEl = document.getElementById('status-text');
+    
+    if (status === 'online') {
+        statusEl.className = 'status online';
+        textEl.textContent = 'ESP32 Online';
+    } else {
+        statusEl.className = 'status offline';
+        textEl.textContent = 'ESP32 Offline';
+    }
 }
 
 // Update pump status display
