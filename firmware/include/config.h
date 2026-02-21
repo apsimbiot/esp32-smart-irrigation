@@ -12,8 +12,8 @@
 // ============================================
 #define MQTT_HOST "17d1b4dd181a4a5b9c95b5f674c2a672.s1.eu.hivemq.cloud"
 #define MQTT_PORT 8883
-#define MQTT_USER "YOUR_MQTT_USERNAME"
-#define MQTT_PASS "YOUR_MQTT_PASSWORD"
+#define MQTT_USER "esp32"
+#define MQTT_PASS "PlantWater26"
 #define MQTT_CLIENT_ID "esp32-irrigation"
 
 // ============================================
