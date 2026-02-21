@@ -1,0 +1,26 @@
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+.vscode/
+
+# Build
+firmware/.pio/
+firmware/lib/
+firmware/.vscode/
+
+# IDE
+*.swp
+*.swo
+.idea/
+*.code-workspace
+
+# Config with secrets (don't commit!)
+# firmware/include/config.h  # Uncomment if you want to exclude
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node modules (if using npm for dashboard)
+node_modules/
