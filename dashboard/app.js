@@ -1,9 +1,9 @@
-// MQTT Configuration
+// MQTT Configuration (hardcoded for convenience)
 let client = null;
 let config = {
-    host: '',
-    user: '',
-    pass: ''
+    host: '17d1b4dd181a4a5b9c95b5f674c2a672.s1.eu.hivemq.cloud',
+    user: 'esp32',
+    pass: 'PlantWater26'
 };
 
 // Topics
@@ -11,14 +11,9 @@ const TOPIC_PUMP_SET = 'plant/pump1/set';
 const TOPIC_PUMP_STATUS = 'plant/pump1/status';
 const TOPIC_STATUS = 'plant/status';
 
-// Initialize
+// Initialize - auto-connect with hardcoded credentials
 document.addEventListener('DOMContentLoaded', () => {
-    loadConfig();
-    if (config.host && config.user && config.pass) {
-        connectMQTT();
-    } else {
-        showConfigModal();
-    }
+    connectMQTT();
 });
 
 // Load config from localStorage
