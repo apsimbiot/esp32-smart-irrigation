@@ -103,9 +103,10 @@ main {
     top: 30px;
     left: 10%;
     right: 10%;
-    height: 4px;
-    background: linear-gradient(90deg, #64b5f6, #42a5f5, #64b5f6);
-    border-radius: 2px;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 3px;
+    overflow: hidden;
 }
 
 .drip-line::before {
@@ -114,6 +115,27 @@ main {
     left: -30px;
     top: -12px;
     font-size: 1.5rem;
+    z-index: 2;
+}
+
+.water-flow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #42a5f5, #64b5f6, #42a5f5);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.water-flow.flowing {
+    animation: flowWater 2s ease-out forwards;
+}
+
+@keyframes flowWater {
+    0% { width: 0%; }
+    100% { width: 100%; }
 }
 
 .plants-row {
@@ -154,16 +176,17 @@ main {
 .drip-drop {
     position: absolute;
     top: -15px;
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
     background: #42a5f5;
     border-radius: 50% 50% 50% 0;
     transform: rotate(-45deg);
     opacity: 0;
+    z-index: 1;
 }
 
-.watering .drip-drop {
-    animation: drip 1s ease-in infinite;
+.plant-pot.watering .drip-drop {
+    animation: drip 0.8s ease-in infinite;
 }
 
 @keyframes drip {
@@ -173,20 +196,49 @@ main {
     }
     100% {
         opacity: 0;
-        top: 40px;
+        top: 50px;
     }
 }
-
-.plant-pot:nth-child(1) .drip-drop { animation-delay: 0s; }
-.plant-pot:nth-child(2) .drip-drop { animation-delay: 0.25s; }
-.plant-pot:nth-child(3) .drip-drop { animation-delay: 0.5s; }
-.plant-pot:nth-child(4) .drip-drop { animation-delay: 0.75s; }
 
 .plant-label {
     font-size: 0.75rem;
     color: #666;
     margin-top: 5px;
     font-weight: 600;
+}
+
+/* Thank you message */
+.thank-you {
+    position: absolute;
+    bottom: -25px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #4caf50;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+    white-space: nowrap;
+}
+
+.plant-pot.happy .thank-you {
+    opacity: 1;
+    transform: translateY(0);
+    animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.plant-pot.happy .plant {
+    animation: happyDance 0.5s ease-in-out 3;
+}
+
+@keyframes happyDance {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-10deg) scale(1.1); }
+    75% { transform: rotate(10deg) scale(1.1); }
 }
 
 .drip-info {

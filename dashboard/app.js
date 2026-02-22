@@ -11,41 +11,14 @@ const TOPIC_PUMP_SET = 'plant/pump1/set';
 const TOPIC_PUMP_STATUS = 'plant/pump1/status';
 const TOPIC_STATUS = 'plant/status';
 
+// Watering animation state
+let wateringTimeout = null;
+let thankYouTimeout = null;
+
 // Initialize - auto-connect with hardcoded credentials
 document.addEventListener('DOMContentLoaded', () => {
     connectMQTT();
 });
-
-// Load config from localStorage
-function loadConfig() {
-    const saved = localStorage.getItem('mqtt_config');
-    if (saved) {
-        config = JSON.parse(saved);
-    }
-}
-
-// Save config to localStorage
-function saveConfig() {
-    config.host = document.getElementById('mqtt-host').value;
-    config.user = document.getElementById('mqtt-user').value;
-    config.pass = document.getElementById('mqtt-pass').value;
-    
-    localStorage.setItem('mqtt_config', JSON.stringify(config));
-    hideConfigModal();
-    connectMQTT();
-}
-
-// Show/hide config modal
-function showConfigModal() {
-    document.getElementById('config-modal').classList.add('show');
-    document.getElementById('mqtt-host').value = config.host || '';
-    document.getElementById('mqtt-user').value = config.user || '';
-    document.getElementById('mqtt-pass').value = config.pass || '';
-}
-
-function hideConfigModal() {
-    document.getElementById('config-modal').classList.remove('show');
-}
 
 // Connect to MQTT broker
 function connectMQTT() {
@@ -126,19 +99,102 @@ function updateDeviceStatus(status) {
 function updatePumpStatus(status) {
     const el = document.getElementById('pump1-status');
     const card = document.getElementById('pump1-card');
-    const plantsSection = document.querySelector('.plants-section');
+    const waterFlow = document.getElementById('water-flow');
+    const plantPots = document.querySelectorAll('.plant-pot');
     
     if (status === 'on') {
         el.textContent = 'ON';
         el.classList.add('on');
         card.classList.add('active');
-        plantsSection.classList.add('watering');
+        
+        // Start water flow animation
+        startWateringAnimation();
     } else {
         el.textContent = 'OFF';
         el.classList.remove('on');
         card.classList.remove('active');
-        plantsSection.classList.remove('watering');
+        
+        // Stop animations
+        stopWateringAnimation();
     }
+}
+
+// Start the watering animation sequence
+function startWateringAnimation() {
+    const waterFlow = document.getElementById('water-flow');
+    const plantPots = document.querySelectorAll('.plant-pot');
+    
+    // Clear any existing timeouts
+    clearTimeout(wateringTimeout);
+    clearTimeout(thankYouTimeout);
+    
+    // Reset states
+    waterFlow.style.width = '0%';
+    waterFlow.classList.remove('flowing');
+    plantPots.forEach(pot => {
+        pot.classList.remove('watering', 'happy');
+    });
+    
+    // Start water flow
+    setTimeout(() => {
+        waterFlow.classList.add('flowing');
+    }, 100);
+    
+    // Trigger each plant's drip animation as water reaches them
+    const delays = [500, 1000, 1500, 2000]; // Water reaches each plant
+    
+    plantPots.forEach((pot, index) => {
+        setTimeout(() => {
+            pot.classList.add('watering');
+        }, delays[index]);
+    });
+    
+    // After 10 seconds, show thank you messages
+    wateringTimeout = setTimeout(() => {
+        showThankYouMessages();
+    }, 10000);
+}
+
+// Stop watering animation
+function stopWateringAnimation() {
+    const waterFlow = document.getElementById('water-flow');
+    const plantPots = document.querySelectorAll('.plant-pot');
+    
+    clearTimeout(wateringTimeout);
+    clearTimeout(thankYouTimeout);
+    
+    // Stop dripping
+    plantPots.forEach(pot => {
+        pot.classList.remove('watering');
+    });
+    
+    // Reset water flow
+    waterFlow.classList.remove('flowing');
+    waterFlow.style.width = '0%';
+}
+
+// Show thank you messages from plants
+function showThankYouMessages() {
+    const plantPots = document.querySelectorAll('.plant-pot');
+    
+    // Stop dripping first
+    plantPots.forEach(pot => {
+        pot.classList.remove('watering');
+    });
+    
+    // Show thank you with staggered timing
+    plantPots.forEach((pot, index) => {
+        setTimeout(() => {
+            pot.classList.add('happy');
+        }, index * 300);
+    });
+    
+    // Hide thank you messages after 3 seconds
+    thankYouTimeout = setTimeout(() => {
+        plantPots.forEach(pot => {
+            pot.classList.remove('happy');
+        });
+    }, 5000);
 }
 
 // Set pump state
