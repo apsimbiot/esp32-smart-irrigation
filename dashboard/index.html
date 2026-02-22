@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🌱 Plant Irrigation Control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🌱 Plant Irrigation</h1>
+            <h1>🌿 My Little Garden</h1>
             <div id="status" class="status offline">
                 <span class="dot"></span>
                 <span id="status-text">Connecting...</span>
@@ -18,45 +21,63 @@
         </header>
 
         <main>
-            <!-- Single Pump Card -->
+            <!-- Plants Display -->
+            <div class="plants-section">
+                <div class="drip-line"></div>
+                <div class="plants-row">
+                    <div class="plant-pot">
+                        <div class="plant plant-1">🌵</div>
+                        <div class="pot">🪴</div>
+                        <div class="drip-drop"></div>
+                        <span class="plant-label">Plant 1</span>
+                    </div>
+                    <div class="plant-pot">
+                        <div class="plant plant-2">🌿</div>
+                        <div class="pot">🪴</div>
+                        <div class="drip-drop"></div>
+                        <span class="plant-label">Plant 2</span>
+                    </div>
+                    <div class="plant-pot">
+                        <div class="plant plant-3">🌱</div>
+                        <div class="pot">🪴</div>
+                        <div class="drip-drop"></div>
+                        <span class="plant-label">Plant 3</span>
+                    </div>
+                    <div class="plant-pot">
+                        <div class="plant plant-4">🍀</div>
+                        <div class="pot">🪴</div>
+                        <div class="drip-drop"></div>
+                        <span class="plant-label">Plant 4</span>
+                    </div>
+                </div>
+                <p class="drip-info">💧 All plants connected via drip irrigation</p>
+            </div>
+
+            <!-- Pump Control Card -->
             <div class="pump-card" id="pump1-card">
+                <div class="pump-icon">💦</div>
                 <div class="pump-header">
-                    <h2>💧 Water Pump</h2>
+                    <h2>Water Pump</h2>
                     <span class="pump-status" id="pump1-status">OFF</span>
                 </div>
                 
                 <div class="controls">
-                    <button class="btn btn-on" onclick="setPump('on')">Turn ON</button>
-                    <button class="btn btn-off" onclick="setPump('off')">Turn OFF</button>
+                    <button class="btn btn-on" onclick="setPump('on')">
+                        <span class="btn-icon">💧</span>
+                        Water Plants
+                    </button>
+                    <button class="btn btn-off" onclick="setPump('off')">
+                        <span class="btn-icon">✋</span>
+                        Stop
+                    </button>
                 </div>
             </div>
         </main>
 
         <footer>
-            <p>ESP32 Smart Irrigation System</p>
+            <p>🌻 Happy Growing! 🌻</p>
             <p id="last-update">Last update: --</p>
         </footer>
-    </div>
-
-    <!-- Config Modal -->
-    <div id="config-modal" class="modal">
-        <div class="modal-content">
-            <h2>🔧 MQTT Configuration</h2>
-            <p>Configure your HiveMQ Cloud credentials:</p>
-            <div class="form-group">
-                <label>Broker Host:</label>
-                <input type="text" id="mqtt-host" placeholder="xxx.s1.eu.hivemq.cloud">
-            </div>
-            <div class="form-group">
-                <label>Username:</label>
-                <input type="text" id="mqtt-user" placeholder="your-username">
-            </div>
-            <div class="form-group">
-                <label>Password:</label>
-                <input type="password" id="mqtt-pass" placeholder="your-password">
-            </div>
-            <button class="btn btn-primary" onclick="saveConfig()">Save & Connect</button>
-        </div>
     </div>
 
     <script src="app.js"></script>

@@ -126,15 +126,18 @@ function updateDeviceStatus(status) {
 function updatePumpStatus(status) {
     const el = document.getElementById('pump1-status');
     const card = document.getElementById('pump1-card');
+    const plantsSection = document.querySelector('.plants-section');
     
     if (status === 'on') {
         el.textContent = 'ON';
         el.classList.add('on');
         card.classList.add('active');
+        plantsSection.classList.add('watering');
     } else {
         el.textContent = 'OFF';
         el.classList.remove('on');
         card.classList.remove('active');
+        plantsSection.classList.remove('watering');
     }
 }
 
