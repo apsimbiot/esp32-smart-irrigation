@@ -14,6 +14,7 @@ const TOPIC_STATUS = 'plant/status';
 // Watering animation state
 let wateringTimeout = null;
 let thankYouTimeout = null;
+let pumpWasRunning = false;
 
 // Initialize - auto-connect with hardcoded credentials
 document.addEventListener('DOMContentLoaded', () => {
@@ -106,6 +107,7 @@ function updatePumpStatus(status) {
         el.textContent = 'ON';
         el.classList.add('on');
         card.classList.add('active');
+        pumpWasRunning = true;
         
         // Start water flow animation
         startWateringAnimation();
@@ -114,7 +116,7 @@ function updatePumpStatus(status) {
         el.classList.remove('on');
         card.classList.remove('active');
         
-        // Stop animations
+        // Stop animations (only show thanks if pump was actually running)
         stopWateringAnimation();
     }
 }
@@ -168,8 +170,11 @@ function stopWateringAnimation() {
     waterFlow.classList.remove('flowing');
     waterFlow.style.width = '0%';
     
-    // Show thank you messages when stopping
-    showThankYouMessages();
+    // Show thank you messages only if pump was actually running
+    if (pumpWasRunning) {
+        showThankYouMessages();
+        pumpWasRunning = false;
+    }
 }
 
 // Show thank you messages from plants
