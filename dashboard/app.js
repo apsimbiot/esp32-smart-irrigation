@@ -149,10 +149,6 @@ function startWateringAnimation() {
         }, delays[index]);
     });
     
-    // After 10 seconds, show thank you messages
-    wateringTimeout = setTimeout(() => {
-        showThankYouMessages();
-    }, 10000);
 }
 
 // Stop watering animation
@@ -171,6 +167,9 @@ function stopWateringAnimation() {
     // Reset water flow
     waterFlow.classList.remove('flowing');
     waterFlow.style.width = '0%';
+    
+    // Show thank you messages when stopping
+    showThankYouMessages();
 }
 
 // Show thank you messages from plants
